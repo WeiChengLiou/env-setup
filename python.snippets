@@ -1,0 +1,14 @@
+#################################
+# Custom snippets               #
+#################################
+
+snippet group "groupby" b
+for ${1:item}, ${2:df_} in ${3:df}.groupby(${4:col}):
+	${5:${VISUAL:pass}}
+endsnippet
+
+snippet .rename "rename" i
+.rename(columns={${1}})
+endsnippet
+
+
