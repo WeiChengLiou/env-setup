@@ -1,87 +1,76 @@
-"vundle
 set nocompatible
-filetype off
+syntax on
+set number
+set wrap
+set ruler
+set incsearch
+set ignorecase
+set smartcase
+set hlsearch
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab
+set autoindent
+set smarttab
+set cindent shiftwidth=4
+set noswapfile
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
 
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'WeiChengLiou/vim_setup'
-"git interface
-Plugin 'tpope/vim-fugitive'
-"filesystem
-Plugin 'scrooloose/nerdtree'
-Plugin 'jistr/vim-nerdtree-tabs'
-Plugin 'Shougo/unite.vim'
-Plugin 'Shougo/neomru.vim'
-Plugin 'Shougo/vimproc.vim'
-Plugin 'dhruvasagar/vim-table-mode'
+call plug#begin('~/.vim/plugged')
 
-"html
-"Plugin 'isnowfy/python-vim-instant-markdown'
-"Plugin 'jtratner/vim-flavored-markdown'
-"Plugin 'suan/vim-instant-markdown'
-"Plugin 'nelstrom/vim-markdown-preview'
-"python sytax checker
-Plugin 'nvie/vim-flake8'
-Plugin 'vim-scripts/Pydiction'
-Plugin 'vim-scripts/indentpython.vim'
-Plugin 'scrooloose/syntastic'
-Plugin 'Yggdroot/indentLine'
+Plug 'tpope/vim-commentary'
+Plug 'junegunn/vim-easy-align'
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'vim-airline/vim-airline'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-dispatch'
+Plug 'easymotion/vim-easymotion'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'jiangmiao/auto-pairs'
+Plug 'haya14busa/incsearch.vim'
+Plug 'haya14busa/incsearch-easymotion.vim'
+Plug 'chrisbra/csv.vim'
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'Yggdroot/LeaderF', {'do': './install.sh'}
+Plug 'w0rp/ale'
+Plug 'tpope/vim-fugitive'
+Plug 'mhinz/vim-signify'
+Plug 'dhruvasagar/vim-table-mode'
+Plug 'davidhalter/jedi-vim'
+Plug 'Valloric/YouCompleteMe'
 
-"auto-completion stuff
-" Plugin 'klen/python-mode'
-"Plugin 'Valloric/YouCompleteMe'
-" Plugin 'klen/rope-vim'
-" Plugin 'davidhalter/jedi-vim'
-Plugin 'ervandew/supertab'
-""code folding
-Plugin 'tmhedberg/SimpylFold'
-
-"Java/Kotlin
-Plugin 'artur-shaik/vim-javacomplete2'
-Plugin 'airblade/vim-rooter'
-Plugin 'udalov/kotlin-vim'
-
+"
 "Colors!!!
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'jnurmine/Zenburn'
+Plug 'altercation/vim-colors-solarized'
+Plug 'jnurmine/Zenburn'
+Plug 'fugalh/desert.vim', {'as': 'desert'}
+Plug 'chriskempson/vim-tomorrow-theme'
+Plug 'morhetz/gruvbox'
 
-Plugin 'benmills/vimux'
-Plugin 'julienr/vim-cellmode'
-" Plugin 'vim-scripts/taglist.vim'
-Plugin 'chazy/cscope_maps'
+Plug 'benmills/vimux'
+Plug 'julienr/vim-cellmode'
 
-" Plugin 'majutsushi/tagbar'
-Plugin 'vim-airline/vim-airline'
-Plugin 'airblade/vim-gitgutter'
-" Plugin 'xolox/vim-misc'
-" Plugin 'xolox/vim-session'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-dispatch'
-Plugin 'easymotion/vim-easymotion'
-Plugin 'terryma/vim-multiple-cursors'
-Plugin 'jiangmiao/auto-pairs'
-Plugin 'haya14busa/incsearch.vim'
-Plugin 'haya14busa/incsearch-easymotion.vim'
-Plugin 'tpope/vim-commentary'
-" Plugin 'chrisbra/csv.vim'
-Plugin 'gcmt/wildfire.vim'
+" textobj
+Plug 'kana/vim-textobj-user'
+Plug 'kana/vim-textobj-indent'
+Plug 'kana/vim-textobj-syntax'
+Plug 'kana/vim-textobj-function', { 'for':['c', 'cpp', 'vim', 'java', 'py'] }
 
-" Snippets
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
+call plug#end()
 
-" task wiki
-Plugin 'vimwiki/vimwiki'
-Plugin 'tbabej/taskwiki'
-Plugin 'mattn/calendar-vim'
+" Basic setup
+let mapleader=" "
+set background=dark
+color desert
 
-call vundle#end()
-
-filetype plugin indent on    " enables filetype detection
-let g:SimpylFold_docstring_preview = 0
+" hotkey
+map <leader>f :echo expand('%:p')<CR>
+map <F2> :silent! NERDTreeToggle<CR>
+map <F12> oimport pdb; pdb.set_trace()<Esc>
+" map <leader>d  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 " airline
 let g:airline#extensions#branch#enabled = 1
@@ -90,49 +79,7 @@ function! CustomBranchName(name)
 return '[' . a:name . ']'
 endfunction
 let g:airline#extensions#syntastic#enabled = 0
-
-" My own set up
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
-set expandtab
-set autoindent
-set smarttab
-set number
-set cindent shiftwidth=4
-
-"autocomplete
-let g:ycm_autoclose_preview_window_after_completion=1
-let g:ycm_python_binary_path = 'python'
-let g:ycm_goto_buffer_command = 'new-tab'
-let g:ycm_path_to_python_interpreter = '/home/gilbert/anaconda3/python'
-
-" snippets
-let g:UltiSnipsExpandTrigger="<c-j>"
-let g:UltiSnipsJumpForwardTrigger="<c-j>"
-let g:UltiSnipsJumpBackwardTrigger="<c-k>"
-
-"custom keys
-let mapleader=" "
 "
-call togglebg#map("<F5>")
-"colorscheme zenburn
-"set guifont=Monaco:h14
-
-"I don't like swap files
-set noswapfile
-
-"turn on numbering
-set nu
-
-"it would be nice to set tag files by the active virtualenv here
-set tags=~/mytags "tags for ctags and taglist
-nmap <leader>\ :tnext<cr>
-nmap <leader>[ :tprev<cr>
-
-"omnicomplete
-autocmd FileType python set omnifunc=pythoncomplete#Complete
-
 "------------Start Python PEP 8 stuff----------------
 " Number of spaces that a pre-existing tab is equal to.
 au BufRead,BufNewFile *py,*pyw,*.c,*.h set tabstop=4
@@ -178,71 +125,18 @@ nnoremap <leader> za
 
 "js stuff"
 autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
-
-set clipboard=unnamed,unnamedplus
-
-let g:pydiction_location = '/home/gilbert/.vim/bundle/Pydiction/complete-dict'
-
-" ctags
-set tags+=/home/gilbert/anaconda2/lib/python2.7/tags
-
-" hotkey
-map <leader>f :echo expand('%:p')<CR>
-map <F3> :!ctags-exuberant -R<CR>
-map <F9> :SyntasticToggleMode<CR>
-map <F2> :silent! NERDTreeTabsToggle<CR>
-map <F12> oimport pdb; pdb.set_trace()<Esc>
-" map <leader>d  :YcmCompleter GoToDefinitionElseDeclaration<CR>
-
+"
 " vim-cellmode
 let g:cellmode_default_mappings=0
 let g:cellmode_tmux_panenumber='1'
-vmap <leader>x :call RunTmuxPythonChunk()<CR>
+vmap <C-K> :call RunTmuxPythonChunk()<CR>
 noremap <leader>n :call RunTmuxPythonCell(0)<CR>
-noremap <leader>g :call RunTmuxPythonCell(1)<CR>
+noremap <S-F9> :call RunTmuxPythonCell(1)<CR>
 noremap <leader>l :call RunTmuxPythonAllCellsAbove()<CR>
 
 " NERDTree
 let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
 let g:nerdtree_tabs_open_on_console_startup=0
-
-" statusline
-set laststatus=2
-
-" syntastic
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
-let g:syntastic_python_checkers = ['flake8']
-let b:syntastic_mode = 'passive'
-
-" tagbar
-nmap <F8> :TagbarToggle<CR>
-
-" cscope
-set nocscopeverbose 
-
-" fugitive
-set diffopt+=vertical
-nnoremap <leader>ga :Git add %:p<CR><CR>
-nnoremap <leader>gs :Gstatus<CR>
-nnoremap <leader>gc :Gcommit -v -q<CR>
-nnoremap <leader>gt :Gcommit -v -q %:p<CR>
-nnoremap <leader>gd :Gdiff<CR>
-nnoremap <leader>ge :Gedit<CR>
-nnoremap <leader>gr :Gread<CR>
-nnoremap <leader>gw :Gwrite<CR><CR>
-nnoremap <leader>gl :silent! Glog<CR>:bot copen<CR>
-nnoremap <leader>glg :Glog --graph --full-history --all --color --oneline<CR>
-nnoremap <leader>gp :Ggrep<Space>
-nnoremap <leader>gm :Gmove<Space>
-nnoremap <leader>gb :Git branch<Space>
-nnoremap <leader>go :Git checkout<Space>
-nnoremap <leader>dg :diffget<CR>
-nnoremap <leader>dp :diffput<CR>
-nnoremap <leader>gps :Dispatch! git push<CR>
-nnoremap <leader>gpl :Dispatch! git pull<CR>
 
 "  incsearch
 set incsearch
@@ -284,83 +178,192 @@ map <Leader><leader>l <Plug>(easymotion-lineforward)
 nmap s <Plug>(easymotion-s2)
 nmap t <Plug>(easymotion-t2)
 
-" vimwiki
-au BufRead,BufNewFile *.wiki set filetype=vimwiki
-:autocmd FileType vimwiki map di :VimwikiMakeDiaryNote
-function! ToggleCalendar()
-  execute ":Calendar"
-  if exists("g:calendar_open")
-    if g:calendar_open == 1
-      execute "q"
-      unlet g:calendar_open
-    else
-      g:calendar_open = 1
-    end
-  else
-    let g:calendar_open = 1
-  end
-endfunction
-:autocmd FileType vimwiki map cal :call ToggleCalendar()
-let g:calendar_diary=$HOME.'/.vim/diary'
-
-" Unite.vim
-let g:unite_source_history_yank_enable = 1
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
-nnoremap <leader>t :<C-u>Unite -no-split -buffer-name=files   -start-insert file_rec/async:!<cr>
-" nnoremap <leader>f :<C-u>Unite -no-split -buffer-name=files   -start-insert file<cr>
-nnoremap <leader>r :<C-u>Unite -no-split -buffer-name=mru     -start-insert file_mru<cr>
-nnoremap <leader>o :<C-u>Unite -no-split -buffer-name=outline -start-insert outline<cr>
-nnoremap <leader>y :<C-u>Unite -no-split -buffer-name=yank    history/yank<cr>
-" nnoremap <leader>e :<C-u>Unite -no-split -buffer-name=buffer  buffer<cr>
-nnoremap <leader>e :Unite -quick-match buffer<cr>
-nnoremap <leader>/ :Unite grep:.<cr>
-" nnoremap <C-p> :Unite file_rec/async<cr>
-
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
-call unite#filters#sorter_default#use(['sorter_rank'])
-"call unite#custom#source('file_rec/async','sorters','sorter_rank', )
-" replacing unite with ctrl-p
-let g:unite_data_directory='~/.vim/.cache/unite'
-let g:unite_enable_start_insert=1
-let g:unite_source_history_yank_enable=1
-let g:unite_prompt='» '
-let g:unite_split_rule = 'botright'
-if executable('ag')
-  let g:unite_source_grep_command='ag'
-  let g:unite_source_grep_default_opts='--nocolor --nogroup -S -C4'
-  let g:unite_source_grep_recursive_opt=''
-endif
-nnoremap <silent> <c-p> :Unite -auto-resize file file_mru file_rec<cr>
-
-" Custom mappings for the unite buffer
-autocmd FileType unite call s:unite_settings()
-function! s:unite_settings()
-  " Play nice with supertab
-  let b:SuperTabDisabled=1
-  " Enable navigation with control-j and control-k in insert mode
-  imap <buffer> <C-j>   <Plug>(unite_select_next_line)
-  imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
-endfunction
-
 " indent highlight
 " vertical line indentation
 let g:indentLine_color_term = 239
 let g:indentLine_color_gui = '#09AA08'
 let g:indentLine_char = '│'
 
-" Java
-autocmd FileType java setlocal omnifunc=javacomplete#Complete
+" CSV
+let g:csv_no_column_highlight = 1
 
-" wildfire
-let g:wildfire_objects = {
-    \ "*" : ["i'", 'i"', "i)", "i]", "i}"],
-    \ "html,xml" : ["at", "it"],
-\ }
-nmap <leader>s <Plug>(wildfire-quick-select)
+" ctags
+set tags=./.tags;,.tags
+set tags+=/home/gilbert/anaconda3/lib/python3.6/tags
 
-" python-mode
-" let g:pymode_rope_goto_definition_bind = "<C-]>"
-" let g:pymode_python = 'python3'
+" vim-gutentags
+let g:gutentags_project_root = ['.root', '.git', '.svn', '.hg', '.project', '.idea']
+let g:gutentags_ctags_tagfile = '.tags'
+
+let s:vim_tags = expand('~/.cache/tags')
+let g:gutentags_cache_dir = s:vim_tags
+
+let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
+let g:gutentags_ctags_extra_args = ['--c++-kinds=+px']
+let g:gutentags_ctags_extra_args = ['--c-kinds=+px']
+
+if !isdirectory(s:vim_tags)
+    silent! call mkdir(s:vim_tags, 'p')
+endif
+
+"-----------------------------------------------------------------------------
+" plugin - ale.vim
+"-----------------------------------------------------------------------------
+
+let g:ale_linter_explicit = 1
+let g:ale_completion_delay = 500
+let g:ale_echo_delay = 20
+let g:ale_lint_delay = 500
+
+
+"keep the sign gutter open
+let g:ale_sign_column_always = 1
+let g:ale_sign_error = '>>'
+let g:ale_sign_warning = '--'
+
+hi! clear SpellBad
+hi! clear SpellCap
+hi! clear SpellRare
+hi! SpellBad gui=undercurl guisp=red
+hi! SpellCap gui=undercurl guisp=blue
+hi! SpellRare gui=undercurl guisp=magenta
+
+" show errors or warnings in my statusline
+let g:airline#extensions#ale#enabled = 1
+
+" self-define statusline
+"function! LinterStatus() abort
+"    let l:counts = ale#statusline#Count(bufnr(''))
+"
+"    let l:all_errors = l:counts.error + l:counts.style_error
+"    let l:all_non_errors = l:counts.total - l:all_errors
+"
+"    return l:counts.total == 0 ? 'OK' : printf(
+"    \  '%dW %dE',
+"    \  all_non_errors,
+"    \  all_errors
+"    \)
+"endfunction
+"set statusline=%{LinterStatus()}
+
+" echo message
+" %s is the error message itself
+" %linter% is the linter name
+" %severity is the severity type
+let g:ale_lint_on_text_changed = 'normal'
+let g:ale_lint_in_insert_leave = 1
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+
+" use quickfix list instead of the loclist
+let g:ale_set_loclist = 0
+let g:ale_set_quickfix = 1
+
+" only enable these linters
+"let g:ale_linters = {
+"\    'javascript': ['eslint']
+"\}
+
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-J> <Plug>(ale_next_wrap)
+
+" run lint only on saving a file
+" let g:ale_lint_on_text_changed = 'never'
+" dont run lint on opening a file
+" let g:ale_lint_on_enter = 0
+
+"------------------------END ale.vim--------------------------------------
+
+" vim-signify
+" 设置要检查的VCS
+let g:signify_vcs_list = ['git']
+" 插入模式下指定updatetime时间后无操作将缓存区交换文件写入磁盘
+let g:signify_cursorhold_insert     = 1
+" 正常模式下指定updatetime时间后无操作将缓存区交换文件写入磁盘
+let g:signify_cursorhold_normal     = 1
+" 缓冲区被修改时更新符号
+let g:signify_update_on_bufenter    = 0
+" vim获取焦点时更新符号
+let g:signify_update_on_focusgained = 1
+" 键盘映射
+nnoremap <leader>ggt :SignifyToggle<CR>
+nnoremap <leader>ggh :SignifyToggleHighlight<CR>
+nnoremap <leader>ggr :SignifyRefresh<CR>
+nnoremap <leader>ggd :SignifyDebug<CR>
+" hunk jumping
+nmap <leader>gj <plug>(signify-next-hunk)
+nmap <leader>gk <plug>(signify-prev-hunk)
+" hunk text object
+omap ic <plug>(signify-motion-inner-pending)
+xmap ic <plug>(signify-motion-inner-visual)
+omap ac <plug>(signify-motion-outer-pending)
+xmap ac <plug>(signify-motion-outer-visual)
+
+" fugitive
+set diffopt+=vertical
+nnoremap <leader>ga :Git add %:p<CR><CR>
+nnoremap <leader>gs :Gstatus<CR>
+nnoremap <leader>gc :Gcommit -v -q<CR>
+nnoremap <leader>gt :Gcommit -v -q %:p<CR>
+nnoremap <leader>gd :Gdiff<CR>
+nnoremap <leader>ge :Gedit<CR>
+nnoremap <leader>gr :Gread<CR>
+nnoremap <leader>gw :Gwrite<CR><CR>
+nnoremap <leader>gl :silent! Glog<CR>:bot copen<CR>
+nnoremap <leader>glg :Glog --graph --full-history --all --color --oneline<CR>
+nnoremap <leader>gp :Ggrep<Space>
+nnoremap <leader>gm :Gmove<Space>
+nnoremap <leader>gb :Git branch<Space>
+nnoremap <leader>go :Git checkout<Space>
+nnoremap <leader>dg :diffget<CR>
+nnoremap <leader>dp :diffput<CR>
+nnoremap <leader>gps :Dispatch! git push<CR>
+nnoremap <leader>gpl :Dispatch! git pull<CR>
 
 "vim-table-mode
 let g:table_mode_corner='|'
+
+" LeaderF
+let g:Lf_ShortcutF = '<leader>lf'
+let g:Lf_ShortcutB = '<leader>lb'
+noremap <F7> :LeaderfMru<cr>
+noremap <F8> :LeaderfFunction!<cr>
+noremap <F9> :LeaderfBuffer<cr>
+noremap <F10> :LeaderfTag<cr>
+let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': ''  }
+
+let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
+let g:Lf_WorkingDirectoryMode = 'Ac'
+let g:Lf_WindowHeight = 0.30
+let g:Lf_CacheDirectory = expand('~/.vim/cache')
+let g:Lf_ShowRelativePath = 0
+let g:Lf_HideHelp = 1
+let g:Lf_StlColorscheme = 'airline'
+let g:Lf_PreviewResult = {'Function':1, 'BufTag':1}
+
+" snippets
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<C-b>"
+let g:UltiSnipsJumpBackwardTrigger="<C-z>"
+
+"autocomplete
+let g:ycm_add_preview_to_completeopt = 0
+let g:ycm_show_diagnostics_ui = 0
+let g:ycm_server_log_level = 'info'
+let g:ycm_min_num_identifier_candidate_chars = 2
+let g:ycm_collect_identifiers_from_comments_and_strings = 1
+let g:ycm_complete_in_strings=1
+let g:ycm_key_invoke_completion = '<c-z>'
+set completeopt=menu,menuone
+
+noremap <c-z> <NOP>
+
+let g:ycm_semantic_triggers =  {
+           \ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
+           \ 'cs,lua,javascript': ['re!\w{2}'],
+           \ 
+           \ }
+" highlight PMenu ctermfg=0 ctermbg=242 guifg=black guibg=darkgrey
+" highlight PMenuSel ctermfg=242 ctermbg=8 guifg=darkgrey guibg=black
+let g:ycm_filetype_whitelist = { "c": 1, "cpp": 1, "py": 1, "sh": 1, "js": 1 }
