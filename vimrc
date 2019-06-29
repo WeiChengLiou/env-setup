@@ -15,10 +15,12 @@ set autoindent
 set smarttab
 set cindent shiftwidth=4
 set noswapfile
+filetype indent on
 
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'WeiChengLiou/env-setup'
 Plug 'tpope/vim-commentary'
 Plug 'junegunn/vim-easy-align'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
@@ -42,7 +44,10 @@ Plug 'dhruvasagar/vim-table-mode'
 Plug 'davidhalter/jedi-vim'
 Plug 'Valloric/YouCompleteMe'
 
-"
+" HTML
+Plug 'Valloric/MatchTagAlways'
+Plug 'vim-scripts/matchit.zip'
+
 "Colors!!!
 Plug 'altercation/vim-colors-solarized'
 Plug 'jnurmine/Zenburn'
@@ -125,6 +130,7 @@ nnoremap <leader> za
 
 "js stuff"
 autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
+autocmd FileType html setlocal shiftwidth=2 tabstop=2
 "
 " vim-cellmode
 let g:cellmode_default_mappings=0
@@ -367,3 +373,4 @@ let g:ycm_semantic_triggers =  {
 " highlight PMenu ctermfg=0 ctermbg=242 guifg=black guibg=darkgrey
 " highlight PMenuSel ctermfg=242 ctermbg=8 guifg=darkgrey guibg=black
 let g:ycm_filetype_whitelist = { "c": 1, "cpp": 1, "py": 1, "sh": 1, "js": 1 }
+
