@@ -15,16 +15,18 @@ set autoindent
 set smarttab
 set cindent shiftwidth=4
 set noswapfile
-filetype indent on
+"filetype indent on
 
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'WeiChengLiou/env-setup'
 Plug 'tpope/vim-commentary'
 Plug 'junegunn/vim-easy-align'
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeTabsToggle' }
+Plug 'jistr/vim-nerdtree-tabs', {'on': 'NERDTreeTabsToggle'}
+Plug 'Xuyuanp/nerdtree-git-plugin', {'on': 'NERDTreeTabsToggle'}
 Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
@@ -41,13 +43,15 @@ Plug 'w0rp/ale'
 Plug 'tpope/vim-fugitive'
 Plug 'mhinz/vim-signify'
 Plug 'dhruvasagar/vim-table-mode'
-Plug 'davidhalter/jedi-vim'
-Plug 'Valloric/YouCompleteMe'
-
-" HTML
+"Plug 'davidhalter/jedi-vim'
+"Plug 'Valloric/YouCompleteMe'
+"
+" Javascript
+Plug 'Chiel92/vim-autoformat'
 Plug 'Valloric/MatchTagAlways'
-Plug 'vim-scripts/matchit.zip'
+Plug 'adelarsq/vim-matchit'
 
+"
 "Colors!!!
 Plug 'altercation/vim-colors-solarized'
 Plug 'jnurmine/Zenburn'
@@ -73,8 +77,12 @@ color desert
 
 " hotkey
 map <leader>f :echo expand('%:p')<CR>
-map <F2> :silent! NERDTreeToggle<CR>
+map <F2> :silent! NERDTreeTabsToggle<CR>
 map <F12> oimport pdb; pdb.set_trace()<Esc>
+xmap <C-_> <Plug>Commentary
+nmap <C-_> <Plug>Commentary
+omap <C-_> <Plug>Commentary
+nmap <C-__> <Plug>CommentaryLine
 " map <leader>d  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 " airline
@@ -141,7 +149,7 @@ noremap <S-F9> :call RunTmuxPythonCell(1)<CR>
 noremap <leader>l :call RunTmuxPythonAllCellsAbove()<CR>
 
 " NERDTree
-let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
+let NERDTreeIgnore=['\.pyc$', '\~$', '__pycache__'] "ignore files in NERDTree
 let g:nerdtree_tabs_open_on_console_startup=0
 
 "  incsearch
@@ -217,7 +225,7 @@ endif
 "-----------------------------------------------------------------------------
 
 let g:ale_linter_explicit = 1
-let g:ale_completion_delay = 500
+let g:ale_completion_delay = 5000
 let g:ale_echo_delay = 20
 let g:ale_lint_delay = 500
 
@@ -275,11 +283,17 @@ nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-J> <Plug>(ale_next_wrap)
 
 " run lint only on saving a file
-" let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_text_changed = 'never'
 " dont run lint on opening a file
 " let g:ale_lint_on_enter = 0
 
 "------------------------END ale.vim--------------------------------------
+
+" vim-autoformat
+let g:formatdef_eslint = '"SRC=eslint-temp-${RANDOM}.js; cat - >$SRC; eslint --fix $SRC >/dev/null 2>&1; cat $SRC | perl -pe \"chomp if eof\"; rm -f $SRC"'
+let g:formatters_javascript = ['eslint'] 
+noremap <F3> :Autoformat<CR>
+ 
 
 " vim-signify
 " 设置要检查的VCS
@@ -353,24 +367,40 @@ let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<C-b>"
 let g:UltiSnipsJumpBackwardTrigger="<C-z>"
 
-"autocomplete
-let g:ycm_add_preview_to_completeopt = 0
-let g:ycm_show_diagnostics_ui = 0
-let g:ycm_server_log_level = 'info'
-let g:ycm_min_num_identifier_candidate_chars = 2
-let g:ycm_collect_identifiers_from_comments_and_strings = 1
-let g:ycm_complete_in_strings=1
-let g:ycm_key_invoke_completion = '<c-z>'
-set completeopt=menu,menuone
+""autocomplete
+"let g:ycm_add_preview_to_completeopt = 0
+"let g:ycm_show_diagnostics_ui = 0
+"let g:ycm_server_log_level = 'info'
+"let g:ycm_min_num_identifier_candidate_chars = 2
+"let g:ycm_collect_identifiers_from_comments_and_strings = 1
+"let g:ycm_complete_in_strings=1
+"let g:ycm_key_invoke_completion = '<c-z>'
+"set completeopt=menu,menuone
+"
+"noremap <c-z> <NOP>
+"
+"let g:ycm_semantic_triggers =  {
+"           \ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
+"           \ 'cs,lua,javascript': ['re!\w{2}'],
+"           \ 
+"           \ }
+"" highlight PMenu ctermfg=0 ctermbg=242 guifg=black guibg=darkgrey
+"" highlight PMenuSel ctermfg=242 ctermbg=8 guifg=darkgrey guibg=black
+"let g:ycm_filetype_whitelist = { "c": 1, "cpp": 1, "py": 1, "sh": 1, "js": 1 }
 
-noremap <c-z> <NOP>
 
-let g:ycm_semantic_triggers =  {
-           \ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
-           \ 'cs,lua,javascript': ['re!\w{2}'],
-           \ 
-           \ }
-" highlight PMenu ctermfg=0 ctermbg=242 guifg=black guibg=darkgrey
-" highlight PMenuSel ctermfg=242 ctermbg=8 guifg=darkgrey guibg=black
-let g:ycm_filetype_whitelist = { "c": 1, "cpp": 1, "py": 1, "sh": 1, "js": 1 }
+" NERDTree-git
+let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "*",
+    \ "Staged"    : "+",
+    \ "Untracked" : "U",
+    \ "Renamed"   : ">",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "-",
+    \ "Dirty"     : "||",
+    \ "Clean"     : "|",
+    \ "Unknown"   : "?"
+    \ }
 
+" Jedi-vim
+let g:jedi#completions_enabled = 0
